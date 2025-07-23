@@ -1,19 +1,53 @@
-import React from "react";
-import "./App.css";
-import JournalForm from "./JournalForm";
+import Layout from "@/components/Layout";
+import Add from "@/pages/Add";
+import Entries from "@/pages/Entries";
+import Goals from "@/pages/Goals";
+import Today from "@/pages/Today";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="text-center py-8">
-        <h1 className="text-3xl font-bold">Journally</h1>
-        <p className="text-gray-600 mt-2">Your daily journal app</p>
-      </header>
-      <main>
-        <JournalForm />
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/today"
+          element={
+            <Layout heading="Today">
+              <Today />
+            </Layout>
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <Layout heading="Add Entry">
+              <Add />
+            </Layout>
+          }
+        />
+        <Route
+          path="/entries"
+          element={
+            <Layout heading="Entries">
+              <Entries />
+            </Layout>
+          }
+        />
+        <Route
+          path="/goals"
+          element={
+            <Layout heading="Goals">
+              <Goals />
+            </Layout>
+          }
+        />
+        <Route path="/" element={<Navigate to="/today" replace />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
