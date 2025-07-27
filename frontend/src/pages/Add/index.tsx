@@ -93,7 +93,9 @@ export default function Add() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <EntryTabList activeTab={activeTab} onTabChange={setActiveTab} />
+        <div className="sticky top-[88px] bg-gray-50 pt-4 pb-2 z-10">
+          <EntryTabList activeTab={activeTab} onTabChange={setActiveTab} />
+        </div>
 
         {submitted && (
           <TabsContent value="preview">

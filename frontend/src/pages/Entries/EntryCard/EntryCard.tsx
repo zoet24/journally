@@ -8,12 +8,40 @@ interface EntryCardProps {
   entry: Entry;
   tagsToShow?: number;
   activeTab: string;
+  searchTerm?: string;
+}
+
+// Add a helper function to highlight search terms
+function HighlightedText({
+  text,
+  searchTerm,
+}: {
+  text: string;
+  searchTerm: string;
+}) {
+  if (!searchTerm) return <>{text}</>;
+
+  const parts = text.split(new RegExp(`(${searchTerm})`, "gi"));
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === searchTerm.toLowerCase() ? (
+          <span key={i} className="bg-yellow-200">
+            {part}
+          </span>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
 }
 
 export default function EntryCard({
   entry,
   tagsToShow = 2,
   activeTab,
+  searchTerm = "",
 }: EntryCardProps) {
   const {
     daily: DailyIcon,
@@ -51,7 +79,9 @@ export default function EntryCard({
           entry.daily && (
             <div className="flex gap-3 items-start">
               <DailyIcon.icon className={`w-5 h-5 mt-1 ${DailyIcon.colour}`} />
-              <p className="flex-1">{entry.daily}</p>
+              <p className="flex-1">
+                <HighlightedText text={entry.daily} searchTerm={searchTerm} />
+              </p>
             </div>
           )
         );
@@ -62,7 +92,12 @@ export default function EntryCard({
               <GratitudeIcon.icon
                 className={`w-5 h-5 mt-1 ${GratitudeIcon.colour}`}
               />
-              <p className="flex-1">{entry.gratitude}</p>
+              <p className="flex-1">
+                <HighlightedText
+                  text={entry.gratitude}
+                  searchTerm={searchTerm}
+                />
+              </p>
             </div>
           )
         );
@@ -71,10 +106,16 @@ export default function EntryCard({
           <div key={index} className="flex gap-3 items-start">
             <QuoteIcon.icon className={`w-5 h-5 mt-1 ${QuoteIcon.colour}`} />
             <div className="flex-1">
-              <p className="italic">"{quote.quote}"</p>
+              <p className="italic">
+                "<HighlightedText text={quote.quote} searchTerm={searchTerm} />"
+              </p>
               {quote.quoteSource && (
                 <p className="text-sm text-gray-500 mt-1">
-                  — {quote.quoteSource}
+                  —{" "}
+                  <HighlightedText
+                    text={quote.quoteSource}
+                    searchTerm={searchTerm}
+                  />
                 </p>
               )}
             </div>
@@ -87,10 +128,18 @@ export default function EntryCard({
               className={`w-5 h-5 mt-1 ${BookmarkIcon.colour}`}
             />
             <div className="flex-1">
-              <p className="font-medium">{bookmark.bookmarkTitle}</p>
+              <p className="font-medium">
+                <HighlightedText
+                  text={bookmark.bookmarkTitle}
+                  searchTerm={searchTerm}
+                />
+              </p>
               {bookmark.bookmarkDescription && (
                 <p className="text-sm text-gray-600 mt-1">
-                  {bookmark.bookmarkDescription}
+                  <HighlightedText
+                    text={bookmark.bookmarkDescription}
+                    searchTerm={searchTerm}
+                  />
                 </p>
               )}
               <div className="flex gap-2 items-center mt-2 text-sm text-gray-500">
@@ -112,7 +161,9 @@ export default function EntryCard({
                 <DailyIcon.icon
                   className={`w-5 h-5 mt-1 ${DailyIcon.colour}`}
                 />
-                <p className="flex-1">{entry.daily}</p>
+                <p className="flex-1">
+                  <HighlightedText text={entry.daily} searchTerm={searchTerm} />
+                </p>
               </div>
             )}
 
@@ -121,7 +172,12 @@ export default function EntryCard({
                 <GratitudeIcon.icon
                   className={`w-5 h-5 mt-1 ${GratitudeIcon.colour}`}
                 />
-                <p className="flex-1">{entry.gratitude}</p>
+                <p className="flex-1">
+                  <HighlightedText
+                    text={entry.gratitude}
+                    searchTerm={searchTerm}
+                  />
+                </p>
               </div>
             )}
 
@@ -131,10 +187,21 @@ export default function EntryCard({
                   className={`w-5 h-5 mt-1 ${QuoteIcon.colour}`}
                 />
                 <div className="flex-1">
-                  <p className="italic">"{quote.quote}"</p>
+                  <p className="italic">
+                    "
+                    <HighlightedText
+                      text={quote.quote}
+                      searchTerm={searchTerm}
+                    />
+                    "
+                  </p>
                   {quote.quoteSource && (
                     <p className="text-sm text-gray-500 mt-1">
-                      — {quote.quoteSource}
+                      —{" "}
+                      <HighlightedText
+                        text={quote.quoteSource}
+                        searchTerm={searchTerm}
+                      />
                     </p>
                   )}
                 </div>
@@ -147,10 +214,18 @@ export default function EntryCard({
                   className={`w-5 h-5 mt-1 ${BookmarkIcon.colour}`}
                 />
                 <div className="flex-1">
-                  <p className="font-medium">{bookmark.bookmarkTitle}</p>
+                  <p className="font-medium">
+                    <HighlightedText
+                      text={bookmark.bookmarkTitle}
+                      searchTerm={searchTerm}
+                    />
+                  </p>
                   {bookmark.bookmarkDescription && (
                     <p className="text-sm text-gray-600 mt-1">
-                      {bookmark.bookmarkDescription}
+                      <HighlightedText
+                        text={bookmark.bookmarkDescription}
+                        searchTerm={searchTerm}
+                      />
                     </p>
                   )}
                   <div className="flex gap-2 items-center mt-2 text-sm text-gray-500">
