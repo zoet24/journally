@@ -1,9 +1,10 @@
 import EntryTabList from "@/components/shared/EntryTabList/EntryTabList";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs } from "@/components/ui/tabs";
 import { format, parse } from "date-fns";
-import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { ChevronUp, Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { entries } from "./entriesDb";
 import EntryCard from "./EntryCard/EntryCard";
 
@@ -42,6 +43,20 @@ function matchesDateSearch(date: string, searchTerm: string): boolean {
 export default function Entries() {
   const [activeTab, setActiveTab] = useState("preview");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const sortedEntries = useMemo(
     () =>
@@ -156,6 +171,16 @@ export default function Entries() {
           searchTerm={searchTerm}
         />
       ))}
+      {showScrollTop && (
+        <Button
+          variant="outline"
+          size="icon"
+          className="fixed bottom-20 right-4 rounded-full h-10 w-10 shadow-md bg-white hover:bg-gray-100 transition-all"
+          onClick={scrollToTop}
+        >
+          <ChevronUp className="h-6 w-6" />
+        </Button>
+      )}
     </div>
   );
 }
