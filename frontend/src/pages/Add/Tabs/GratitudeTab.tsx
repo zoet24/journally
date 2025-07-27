@@ -13,7 +13,7 @@ export default function GratitudeTab({ value, onChange }: GratitudeTabProps) {
 
   return (
     <EntryCard icon={icon} colour={colour} title={title}>
-      <Label htmlFor="gratitude">Something I'm grateful for</Label>
+      <Label htmlFor="gratitude">I am grateful for...</Label>
       <Textarea
         id="gratitude"
         name="gratitude"

@@ -1,3 +1,5 @@
+import { ENTRY_TABS } from "@/components/shared/EntryTabList/EntryTabListConfig";
+import TagGroup from "@/components/shared/TagGroup/TagGroup";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -6,8 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { X } from "lucide-react";
-import { ENTRY_TABS } from "../../../components/shared/EntryTabList/EntryTabListConfig";
 import EntryCard from "../EntryCard/EntryCard";
 
 interface TagsTabProps {
@@ -29,40 +29,19 @@ export default function TagsTab({
 
   return (
     <EntryCard icon={icon} colour={colour} title={title}>
-      <div className="mb-2">
-        <Label>Active Tags</Label>
-        <div className="flex flex-wrap gap-2 mt-2">
-          {activeTags.length === 0 && (
-            <span className="text-gray-400">No tags selected</span>
-          )}
-          {activeTags.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center bg-green-100 text-green-800 px-2 py-1 rounded cursor-pointer hover:bg-green-200 transition"
-              onClick={() => onRemoveTag(tag)}
-              title="Remove tag"
-            >
-              {tag}
-              <X className="ml-1 w-3 h-3" />
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="mb-2">
-        <Label>Suggested Tags</Label>
-        <div className="flex flex-wrap gap-2 mt-2">
-          {availableTags.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded cursor-pointer hover:bg-blue-200 transition"
-              onClick={() => onAddTag(tag)}
-              title="Add tag"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
+      <TagGroup
+        label="Active Tags"
+        tags={activeTags}
+        variant="active"
+        emptyMessage="No tags selected"
+        onTagClick={onRemoveTag}
+        onTagRemove={onRemoveTag}
+      />
+      <TagGroup
+        label="Suggested Tags"
+        tags={availableTags}
+        onTagClick={onAddTag}
+      />
       <div className="mb-2">
         <Label>Add Tag</Label>
         <Select onValueChange={onDropdownAdd}>

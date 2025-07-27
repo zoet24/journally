@@ -13,7 +13,7 @@ export default function DailyTab({ value, onChange }: DailyTabProps) {
 
   return (
     <EntryCard icon={icon} colour={colour} title={title}>
-      <Label htmlFor="entry">Write your thoughts here...</Label>
+      <Label htmlFor="entry">Today I am...</Label>
       <Textarea
         id="entry"
         name="entry"

@@ -22,7 +22,7 @@ export default function QuoteTab({
   return (
     <EntryCard icon={icon} colour={colour} title={title}>
       <div>
-        <Label htmlFor="quote">Quote</Label>
+        <Label htmlFor="quote">Quotes</Label>
         <Textarea
           id="quote"
           name="quote"
