@@ -1,6 +1,8 @@
+import { ENTRY_TABS } from "@/components/shared/EntryTabList/EntryTabListConfig";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ENTRY_TABS } from "../../../components/shared/EntryTabList/EntryTabListConfig";
+import { promptsDaily } from "@/constants/prompts";
+import { useMemo } from "react";
 import EntryCard from "../EntryCard/EntryCard";
 
 interface DailyTabProps {
@@ -9,19 +11,28 @@ interface DailyTabProps {
 }
 
 export default function DailyTab({ value, onChange }: DailyTabProps) {
-  const { icon, colour, title } = ENTRY_TABS.daily;
+  const { daily: DailyIcon } = ENTRY_TABS;
+
+  const prompt = useMemo(
+    () => promptsDaily[Math.floor(Math.random() * promptsDaily.length)],
+    []
+  );
 
   return (
-    <EntryCard icon={icon} colour={colour} title={title}>
-      <Label htmlFor="entry">Today I am...</Label>
+    <EntryCard
+      icon={DailyIcon.icon}
+      colour={DailyIcon.colour}
+      title={DailyIcon.title}
+    >
+      <Label htmlFor="daily">Today I am...</Label>
       <Textarea
-        id="entry"
-        name="entry"
+        id="daily"
+        name="daily"
         className="mt-2"
         rows={4}
         value={value}
         onChange={onChange}
-        required
+        placeholder={prompt}
       />
     </EntryCard>
   );
