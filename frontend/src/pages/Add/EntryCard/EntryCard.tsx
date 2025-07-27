@@ -20,7 +20,7 @@ export default function EntryCard({
         <Icon className={`w-6 h-6 ${colour}`} />
         <CardTitle className="text-xl font-bold text-left">{title}</CardTitle>
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent className="space-y-4">{children}</CardContent>
     </Card>
   );
 }

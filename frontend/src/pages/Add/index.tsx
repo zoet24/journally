@@ -1,6 +1,7 @@
 import EntryTabList from "@/components/shared/EntryTabList/EntryTabList";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { EntryFormState } from "@/types/Entry";
 import { useState } from "react";
 import BookmarksTab from "./Tabs/BookmarksTab";
 import DailyTab from "./Tabs/DailyTab";
@@ -23,7 +24,7 @@ const SUGGESTED_TAGS = [
 ];
 
 export default function Add() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<EntryFormState>({
     daily: "",
     gratitude: "",
     quote: "",
@@ -46,7 +47,10 @@ export default function Add() {
   };
 
   const handleSelect = (value: string) => {
-    setForm((prev) => ({ ...prev, bookmarkCategory: value }));
+    setForm((prev) => ({
+      ...prev,
+      bookmarkCategory: value as "book" | "film" | "music",
+    }));
   };
 
   const handleSwitch = (checked: boolean) => {
