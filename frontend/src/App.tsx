@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import SharedLayout from "@/components/layout/SharedLayout/SharedLayout";
 import Add from "@/pages/Add";
 import Entries from "@/pages/Entries";
 import Goals from "@/pages/Goals";
@@ -17,33 +17,33 @@ export default function App() {
         <Route
           path="/today"
           element={
-            <Layout heading="Today">
+            <SharedLayout heading="Today">
               <Today />
-            </Layout>
+            </SharedLayout>
           }
         />
         <Route
           path="/add"
           element={
-            <Layout heading="Add Entry">
+            <SharedLayout heading="Add Entry">
               <Add />
-            </Layout>
+            </SharedLayout>
           }
         />
         <Route
           path="/entries"
           element={
-            <Layout heading="Entries">
+            <SharedLayout heading="Entries">
               <Entries />
-            </Layout>
+            </SharedLayout>
           }
         />
         <Route
           path="/goals"
           element={
-            <Layout heading="Goals">
+            <SharedLayout heading="Goals">
               <Goals />
-            </Layout>
+            </SharedLayout>
           }
         />
         <Route path="/" element={<Navigate to="/today" replace />} />

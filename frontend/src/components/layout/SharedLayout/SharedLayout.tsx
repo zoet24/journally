@@ -39,7 +39,7 @@ function formatDate(date: Date) {
   return `${day} ${d}${suffix} ${month} ${year}`;
 }
 
-export default function Layout({
+export default function SharedLayout({
   children,
   heading,
 }: {
